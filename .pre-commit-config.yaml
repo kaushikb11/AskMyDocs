@@ -1,0 +1,104 @@
+repos:
+  # General hooks for all files
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: mixed-line-ending
+        args: ['--fix=lf']
+
+  # Python Backend Hooks
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        files: ^backend/
+        language_version: python3
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        files: ^backend/
+        args: ["--profile", "black", "--line-length", "88"]
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        files: ^backend/
+        args: [
+          "--max-line-length=88",
+          "--extend-ignore=E203,W503,E501,F401,F841,E402,F821,F541",
+          "--exclude=__pycache__,*.pyc,.git,venv,env"
+        ]
+
+  # Note: mypy disabled due to extensive type annotation requirements
+  # Enable after adding proper type hints to the codebase
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.9.0
+  #   hooks:
+  #     - id: mypy
+  #       files: ^backend/
+  #       additional_dependencies: [types-requests, types-PyYAML]
+  #       args: ["--ignore-missing-imports", "--show-error-codes"]
+
+  # Frontend Hooks
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: bash -c 'cd frontend && npm run lint'
+        language: system
+        files: ^frontend/.*\.(ts|tsx|js|jsx)$
+        pass_filenames: false
+
+      - id: typescript-check
+        name: TypeScript Check
+        entry: bash -c 'cd frontend && npm run type-check'
+        language: system
+        files: ^frontend/.*\.(ts|tsx)$
+        pass_filenames: false
+
+  # Prettier for Frontend (optional but recommended)
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        files: ^frontend/.*\.(ts|tsx|js|jsx|json|css|md)$
+        exclude: ^frontend/(node_modules|dist)/
+        args: ["--write"]
+
+  # Security checks
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        exclude: package-lock.json
+
+# Configuration
+default_language_version:
+  python: python3
+
+fail_fast: false
+
+# Exclude patterns
+exclude: |
+  (?x)^(
+    frontend/node_modules/.*|
+    frontend/dist/.*|
+    backend/__pycache__/.*|
+    backend/\.venv/.*|
+    venv/.*|
+    \.git/.*|
+    .*\.pyc|
+    .*\.pyo
+  )$
