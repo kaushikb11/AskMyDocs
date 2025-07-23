@@ -137,6 +137,7 @@ tramp
 uploads/
 vector_db/
 *.pdf
+!data/*.pdf
 *.docx
 *.doc
 
