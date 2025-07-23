@@ -18,8 +18,8 @@ Before you begin, ensure you have:
 
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd document-intelligence-platform
+git clone https://github.com/kaushikb11/AskMyDocs.git
+cd AskMyDocs
 
 # Backend setup
 cd backend
