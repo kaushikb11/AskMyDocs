@@ -26,7 +26,6 @@ class GradeDocuments(BaseModel):
 
 
 class HybridSearchRetriever:
-    """Custom retriever that integrates with QdrantOfficialHybridStore."""
 
     def __init__(self, vector_store: QdrantOfficialHybridStore):
         self.vector_store = vector_store
@@ -35,7 +34,6 @@ class HybridSearchRetriever:
     def get_relevant_documents(self, query: str, **kwargs) -> List[Document]:
         """Perform hybrid search and return LangChain Document objects."""
         try:
-            # Use the official hybrid search
             search_results = self.vector_store.hybrid_search(
                 query=query,
                 limit=8,
@@ -86,7 +84,6 @@ class HybridSearchRetriever:
 
 
 class AgenticRAG:
-    """Enhanced Agentic RAG system following LangGraph tutorial patterns with session support."""
 
     def __init__(self, documents_dto: DocumentsDto):
         self.documents_dto = documents_dto

@@ -2,7 +2,7 @@
 
 **Transform your documents into intelligent conversations.**
 
-AskMyDocs is an AI-powered document intelligence platform that lets you upload PDFs and interact with them through natural language. Ask questions, get instant answers, and discover insights from your documents like never before.
+AskMyDocs is an AI-powered document intelligence platform that lets you upload PDFs and interact with them through natural language. Ask questions, get instant answers, and discover insights from your documents.
 
 ---
 
@@ -87,16 +87,6 @@ Built with React and Tailwind CSS for a clean, responsive, and intuitive user in
 
 ---
 
-## Technology Stack
-
-**Backend Foundation**
-FastAPI • SQLModel • OpenAI Vision • Qdrant Vector Database • LangGraph
-
-**Frontend Experience** 
-React 19 • TypeScript • Vite • Tailwind CSS • TanStack Query
-
----
-
 ## Configuration
 
 ### Backend Environment
@@ -124,26 +114,3 @@ Create `frontend/.env`:
 ```bash
 VITE_API_BASE_URL=http://localhost:8000
 ```
-
----
-
-## Development
-
-### Backend Development
-```bash
-cd backend
-source venv/bin/activate
-python main.py                    # Development server with auto-reload
-```
-
-### Frontend Development
-```bash
-cd frontend
-npm run dev                       # Development server with hot reload
-npm run type-check               # TypeScript validation
-npm run lint                     # Code quality checks
-```
-
----
-
-**Built with modern web technologies and AI innovation.** 

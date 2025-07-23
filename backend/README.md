@@ -36,16 +36,6 @@ Once running, visit:
    - Click endpoints → "Try it out" → Execute
    - Upload PDFs directly in the browser
    - See live request/response examples
-   - No command line needed!
-
-### Alternative: Automated Testing
-```bash
-# Run automated test suite
-python test_upload.py
-
-# Test with your own PDF
-python test_upload.py --file path/to/your/document.pdf
-```
 
 ### Manual cURL Testing
 ```bash
@@ -57,9 +47,6 @@ curl -X POST "http://localhost:8000/api/v1/documents/upload" \
 # List documents
 curl http://localhost:8000/api/v1/documents
 ```
-
-### Additional Testing Resources
-👉 **See [LOCAL_TESTING.md](LOCAL_TESTING.md)** for comprehensive testing guide including troubleshooting and detailed examples.
 
 ## 📁 Project Structure
 
@@ -192,9 +179,3 @@ PDF Upload → OpenAI Vision Extraction → MarkdownDocument → Qdrant Indexing
 - **Hybrid Search**: Semantic + keyword search with Qdrant
 - **Document Processing**: OpenAI Vision + smart chunking
 - **Production Ready**: Environment-based configuration, proper logging
-
-## 🚨 Important Notes
-
-- Make sure to set your OpenAI or Anthropic API key in the `.env` file
-- The application will create `uploads/` and `vector_db/` directories automatically
-- For production, consider using a more robust vector database like MongoDB Vector Search 

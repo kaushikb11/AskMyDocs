@@ -30,10 +30,6 @@ logger = logging.getLogger(__name__)
 
 
 class QdrantOfficialHybridStore:
-    """
-    Official Qdrant hybrid search implementation using FastEmbed and native fusion.
-    Based on: https://qdrant.tech/documentation/beginner-tutorials/hybrid-search-fastembed/
-    """
 
     # Official models from Qdrant documentation
     DENSE_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
