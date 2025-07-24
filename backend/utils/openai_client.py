@@ -30,7 +30,7 @@ class OpenAIVisionClient:
         # Initialize OpenAI client with Instructor for structured responses
         openai_client = AsyncOpenAI(api_key=settings.openai_api_key)
         self.client = instructor.from_openai(openai_client)
-        self.model = "gpt-4"
+        self.model = "gpt-4.1"
 
     def _pdf_to_images(self, pdf_path: str, dpi: int = 150) -> List[bytes]:
         """Convert PDF pages to images for vision processing."""
@@ -62,7 +62,7 @@ class OpenAIVisionClient:
         extract_tables: bool = True,
         extract_figures: bool = True,
     ) -> tuple[MarkdownPage, int]:
-        """Extract content from a single page using GPT-4 Vision with Instructor."""
+        """Extract content from a single page using GPT-4.1 with vision capabilities and Instructor."""
 
         try:
             # Use Instructor to get structured response with token tracking
@@ -258,7 +258,7 @@ class OpenAISummaryClient:
         # Initialize OpenAI client for summary generation
         openai_client = AsyncOpenAI(api_key=settings.openai_api_key)
         self.client = openai_client
-        self.model = "gpt-4"
+        self.model = "gpt-4.1"  # Using gpt-4.1 for consistency and better performance
 
     async def generate_summary(
         self,

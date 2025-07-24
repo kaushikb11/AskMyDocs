@@ -99,10 +99,10 @@ class AgenticRAG:
 
         # Initialize models following tutorial
         self.response_model = ChatOpenAI(
-            model="gpt-4", temperature=0, api_key=settings.openai_api_key
+            model="gpt-4.1", temperature=0, api_key=settings.openai_api_key
         )
         self.grader_model = ChatOpenAI(
-            model="gpt-4", temperature=0, api_key=settings.openai_api_key
+            model="gpt-4.1", temperature=0, api_key=settings.openai_api_key
         )
 
         # Add memory saver for session support
