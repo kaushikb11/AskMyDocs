@@ -71,6 +71,61 @@ AskMyDocs/
 
 ---
 
+## Processing Flow
+
+The platform follows a document processing pipeline that transforms PDFs into intelligent, queryable knowledge bases:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant DocumentsAPI
+    participant DocumentProcessor
+    participant OpenAIVision
+    participant QdrantDB
+    participant SQLiteDB
+
+    User->>Frontend: Upload PDF
+    Frontend->>DocumentsAPI: POST /api/v1/documents/upload
+    DocumentsAPI->>SQLiteDB: Save document metadata
+    DocumentsAPI->>DocumentProcessor: Background processing
+    DocumentsAPI-->>Frontend: Upload successful (processing)
+    
+    Note over DocumentProcessor,QdrantDB: Background Processing Pipeline
+    
+    DocumentProcessor->>OpenAIVision: Extract content from PDF pages
+    OpenAIVision-->>DocumentProcessor: MarkdownDocument with text, tables, figures
+    
+    DocumentProcessor->>DocumentProcessor: Smart chunking with overlap
+    DocumentProcessor->>OpenAIVision: Generate embeddings for chunks
+    OpenAIVision-->>DocumentProcessor: Vector embeddings
+    
+    DocumentProcessor->>QdrantDB: Index chunks with hybrid search
+    DocumentProcessor->>SQLiteDB: Update processing status
+    
+    Note over User,SQLiteDB: Document Ready for Q&A
+    
+    User->>Frontend: Ask question about document
+    Frontend->>DocumentsAPI: POST /api/v1/chat/ask
+    DocumentsAPI->>QdrantDB: Hybrid search for relevant chunks
+    QdrantDB-->>DocumentsAPI: Retrieved context chunks
+    DocumentsAPI->>OpenAIVision: Generate answer with context
+    OpenAIVision-->>DocumentsAPI: Answer with sources
+    DocumentsAPI->>SQLiteDB: Save conversation
+    DocumentsAPI-->>Frontend: Response with answer and sources
+    Frontend-->>User: Display answer with source citations
+```
+
+**Key Processing Stages:**
+
+1. **Document Upload & Storage** - Secure PDF upload with metadata extraction
+2. **Vision-Based Extraction** - GPT-4.1 Vision API extracts structured content (text, tables, figures)
+3. **Smart Chunking** - Intelligent content segmentation with semantic boundaries  
+4. **Vector Indexing** - Hybrid search setup with dense and sparse embeddings
+5. **Conversational Interface** - Natural language Q&A with precise source attribution
+
+---
+
 ## Core Features
 
 **Document Intelligence**
